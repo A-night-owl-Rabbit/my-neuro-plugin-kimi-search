@@ -1,0 +1,106 @@
+{
+  "provider": {
+    "title": "调用模式",
+    "description": "free_api = 用 Kimi-Free-API 走逆向网页协议（免费但有账号风控）。official = 用 Moonshot 官方 API（按 token 付费，稳定无限流，需 sk-xxx Key）。",
+    "type": "string",
+    "default": "free_api",
+    "value": "free_api"
+  },
+  "base_url": {
+    "title": "Kimi-Free-API 基础地址 (free_api 模式)",
+    "description": "Kimi-Free-API 服务的基础地址（不含 /chat/completions），默认本机 8000 端口",
+    "type": "string",
+    "default": "http://localhost:8000/v1",
+    "value": "http://localhost:8000/v1"
+  },
+  "refresh_token": {
+    "title": "Kimi refresh_token",
+    "description": "登录 https://kimi.moonshot.cn 后从浏览器 Application > Local Storage 中复制 refresh_token 的值。多账号轮询用半角逗号分隔（TOKEN1,TOKEN2）。",
+    "type": "string",
+    "default": "",
+    "value": ""
+  },
+  "model": {
+    "title": "默认模型 (free_api 模式)",
+    "description": "可选：kimi / kimi-search / kimi-research / kimi-silent。建议 kimi-search-silent，开启联网且不输出搜索过程。",
+    "type": "string",
+    "default": "kimi-search-silent",
+    "value": "kimi-search-silent"
+  },
+  "official_api_key": {
+    "title": "Moonshot 官方 API Key (official 模式)",
+    "description": "在 https://platform.moonshot.cn 创建账号充值后获取，sk-xxx 格式。仅在 provider=official 时生效。",
+    "type": "string",
+    "default": "",
+    "value": ""
+  },
+  "official_base_url": {
+    "title": "Moonshot 官方 API 基础地址 (official 模式)",
+    "description": "国内版 https://api.moonshot.cn/v1，海外版 https://api.moonshot.ai/v1",
+    "type": "string",
+    "default": "https://api.moonshot.cn/v1",
+    "value": "https://api.moonshot.cn/v1"
+  },
+  "official_model": {
+    "title": "官方 API 模型 (official 模式)",
+    "description": "推荐 kimi-k2.5（最新）；也可以 moonshot-v1-32k / moonshot-v1-128k（更便宜）",
+    "type": "string",
+    "default": "kimi-k2.5",
+    "value": "kimi-k2.5"
+  },
+  "use_search": {
+    "title": "默认启用联网搜索",
+    "description": "对应 Kimi-Free-API 的 use_search 参数，开启后 Kimi 会自动联网检索。",
+    "type": "boolean",
+    "default": true,
+    "value": true
+  },
+  "timeout": {
+    "title": "请求超时(毫秒)",
+    "description": "Kimi 联网回答（尤其是开放性新闻/资讯类查询）经常 60-90 秒，建议 180000（3 分钟）。设太小会在 Kimi 还在响应时被插件中断。",
+    "type": "int",
+    "default": 180000,
+    "value": 180000
+  },
+  "max_retries": {
+    "title": "最大重试次数",
+    "description": "建议 0：超时通常是 Kimi 真的慢，重试只会让用户多等 N 倍时间。仅在网络真的有抖动时再开启。",
+    "type": "int",
+    "default": 0,
+    "value": 0
+  },
+  "retry_delay": {
+    "title": "重试间隔(毫秒)",
+    "type": "int",
+    "default": 2000,
+    "value": 2000
+  },
+  "strip_citations": {
+    "title": "剥离引用源",
+    "description": "传给主 LLM 的回答中，去掉「搜索结果来自」列表、【检索 N】行和 [^N^] 角标。建议保持开启——肥牛 TTS 不会念出 URL，主 LLM 上下文也省 token。",
+    "type": "boolean",
+    "default": true,
+    "value": true
+  },
+  "auto_start_backend": {
+    "title": "自动托管 Kimi-Free-API 后端",
+    "description": "肥牛启动时自动 spawn Kimi-Free-API 子进程，关肥牛时同步 kill。如果你已用 PM2 / 手动启动后端，启动时插件会检测到端口已在用，跳过托管。",
+    "type": "boolean",
+    "default": true,
+    "value": true
+  },
+  "backend_path": {
+    "title": "Kimi-Free-API 项目目录",
+    "description": "留空则使用插件内置后端目录：backend/kimi-free-api。需包含 dist/index.js。",
+    "type": "string",
+    "default": "",
+    "value": ""
+  },
+  "startup_timeout": {
+    "title": "后端启动超时(毫秒)",
+    "description": "等待 /ping 200 的最长时间，超时后插件不阻塞，但工具调用时会返回连接失败提示。",
+    "type": "int",
+    "default": 15000,
+    "value": 15000
+  }
+}

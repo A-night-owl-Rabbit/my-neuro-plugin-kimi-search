@@ -1,0 +1,10 @@
+{
+  "name": "kimi-search",
+  "displayName": "Kimi 联网搜索",
+  "version": "1.0.0",
+  "author": "community",
+  "description": "通过 Kimi-Free-API 调用 Kimi 网页版的联网搜索能力，作为 Function Calling 工具暴露给主 LLM。Kimi 自己完成搜索 + 阅读 + 总结，返回结构化答案。",
+  "framework_version": ">=1.0.0",
+  "main": "index.js",
+  "lang": "js"
+}
